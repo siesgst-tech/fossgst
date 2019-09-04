@@ -1,8 +1,50 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@font-face {
+  font-family: kenyan-coffee;
+  src: url('../fonts/kenyan coffee rg.ttf');
 }
 
-a {
-  color: #00B7FF;
+.font-primary {
+  font-family: 'manjari';
+}
+
+.font-kenyan {
+  font-family: kenyan-coffee;
+}
+
+.font-roboto {
+  font-family: roboto;
+}
+
+.font-opensans {
+  font-family: 'open sans';
+}
+
+.custom-muted {
+  background: #e0e0e0;
+}
+
+.uikit-muted {
+  background: #f8f8f8;
+}
+
+.uikit-muted-darker {
+  background: #f0f0f0;
+}
+
+.no-decor:hover {
+  text-decoration: none;
+}
+
+.custom-dark {
+  color: gray !important;
+  font-size: 1.2em !important;
+}
+
+.custom-dark:hover {
+  color: #333333 !important;
+}
+
+.uk-active .custom-dark {
+  color: #000000 !important;
+  font-size: 1.5em !important;
 }
