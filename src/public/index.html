@@ -54,6 +54,21 @@
     .no-decor:hover {
       text-decoration: none;
     }
+
+    .custom-dark {
+      color: gray !important;
+      font-size: 1.2em !important;
+    }
+
+    .custom-dark:hover {
+      color: #333333 !important;
+    }
+
+    .uk-active .custom-dark {
+      color: #000000 !important;
+      font-size: 1.5em !important;
+    }
+
   </style>
 </head>
 
@@ -67,7 +82,6 @@
           <li class="uk-active"><a class="uk-logo" href="#">LOGO</a></li>
         </ul>
       </div>
-
       <div class="uk-navbar-right">
         <ul class="uk-navbar-nav">
           <li><a href="#">About</a></li>
@@ -95,30 +109,33 @@
           <li><a href="#">Register</a></li>
         </ul>
       </div>
-
     </nav>
 
-    <!-- <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #offcanvas-nav-primary">Primary Nav</button> -->
+    <nav class="uk-background-default uk-box-shadow-small uk-hidden@s" uk-navbar
+      style="position: relative; z-index: 980;">
+      <div class="uk-navbar-center">
+        <ul class="uk-navbar-nav">
+          <li class="uk-active"><a class="uk-logo" href="#">LOGO</a></li>
+        </ul>
+      </div>
+      <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+          <li><button class="uk-button uk-button-large uk-margin-small-right uk-hidden@s" type="button"
+              uk-toggle="target: #offcanvas-nav-primary" uk-icon="menu"></button>
+        </ul>
+      </div>
+    </nav>
 
     <div id="offcanvas-nav-primary" uk-offcanvas="overlay: true">
       <div class="uk-background-default uk-offcanvas-bar uk-flex uk-flex-column">
-
         <ul class="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
-          <li class="uk-dark uk-active"><a href="#">Active</a></li>
-          <li class="uk-parent">
-            <a href="#">Parent</a>
-            <ul class="uk-nav-sub">
-              <li><a href="#">Sub item</a></li>
-              <li><a href="#">Sub item</a></li>
-            </ul>
-          </li>
-          <li class="uk-nav-header">Header</li>
-          <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
-          <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
-          <li class="uk-nav-divider"></li>
-          <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+          <li class="uk-active"><a href="#" class="custom-dark">LOGO</a></li>
+          <li><a href="#" class="custom-dark">Parent</a></li>
+          <li><a href="#" class="custom-dark">Events</a></li>
+          <li><a href="#" class="custom-dark">Projects</a></li>
+          <li><a href="#" class="custom-dark">Login</a></li>
+          <li><a href="#" class="custom-dark">Register</a></li>
         </ul>
-
       </div>
     </div>
 
@@ -196,64 +213,56 @@
 
       <div class="uk-grid-medium uk-grid-match uk-child-width-1-2@s" uk-grid>
         <div>
-          <div class="uk-card uikit-muted-darker uk-card-body"
-            uk-scrollspy="cls: uk-animation-fade; delay: 500">
+          <div class="uk-card uikit-muted-darker uk-card-body" uk-scrollspy="cls: uk-animation-fade; delay: 500">
             <h2>Hacktoberfest</h2>
             <p>Hack all October</p>
           </div>
         </div>
 
         <div>
-          <div class="uk-card uikit-muted-darker uk-card-body"
-            uk-scrollspy="cls: uk-animation-fade; delay: 500">
+          <div class="uk-card uikit-muted-darker uk-card-body" uk-scrollspy="cls: uk-animation-fade; delay: 500">
             <h2>Hacktoberfest</h2>
             <p>Hack all October</p>
           </div>
         </div>
 
         <div>
-          <div class="uk-card uikit-muted-darker uk-card-body"
-            uk-scrollspy="cls: uk-animation-fade; delay: 500">
+          <div class="uk-card uikit-muted-darker uk-card-body" uk-scrollspy="cls: uk-animation-fade; delay: 500">
             <h2>Hacktoberfest</h2>
             <p>Hack all October</p>
           </div>
         </div>
 
         <div>
-          <div class="uk-card uikit-muted-darker uk-card-body"
-            uk-scrollspy="cls: uk-animation-fade; delay: 500">
+          <div class="uk-card uikit-muted-darker uk-card-body" uk-scrollspy="cls: uk-animation-fade; delay: 500">
             <h2>Hacktoberfest</h2>
             <p>Hack all October</p>
           </div>
         </div>
 
         <div>
-          <div class="uk-card uikit-muted-darker uk-card-body"
-            uk-scrollspy="cls: uk-animation-fade; delay: 500">
+          <div class="uk-card uikit-muted-darker uk-card-body" uk-scrollspy="cls: uk-animation-fade; delay: 500">
             <h2>Hacktoberfest</h2>
             <p>Hack all October</p>
           </div>
         </div>
 
         <div>
-          <div class="uk-card uikit-muted-darker uk-card-body"
-            uk-scrollspy="cls: uk-animation-fade; delay: 500">
+          <div class="uk-card uikit-muted-darker uk-card-body" uk-scrollspy="cls: uk-animation-fade; delay: 500">
             <h2>Hacktoberfest</h2>
             <p>Hack all October</p>
           </div>
         </div>
 
         <div>
-          <div class="uk-card uikit-muted-darker uk-card-body"
-            uk-scrollspy="cls: uk-animation-fade; delay: 500">
+          <div class="uk-card uikit-muted-darker uk-card-body" uk-scrollspy="cls: uk-animation-fade; delay: 500">
             <h2>Hacktoberfest</h2>
             <p>Hack all October</p>
           </div>
         </div>
 
         <div>
-          <div class="uk-card uikit-muted-darker uk-card-body"
-            uk-scrollspy="cls: uk-animation-fade; delay: 500">
+          <div class="uk-card uikit-muted-darker uk-card-body" uk-scrollspy="cls: uk-animation-fade; delay: 500">
             <h2>Hacktoberfest</h2>
             <p>Hack all October</p>
           </div>
