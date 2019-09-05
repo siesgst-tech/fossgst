@@ -1,9 +1,11 @@
-var express = require('express');
-var router = express.Router();
+const debug = require('debug')('fossgst:routes');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+function initRoutes(app) {
+  debug("Initializing Routes...");
 
-module.exports = router;
+
+  // Ending Routes
+  debug('Finished Initializing Routes...');
+}
+
+module.exports = initRoutes;
