@@ -7,7 +7,11 @@ const flash = require('connect-flash');
 const moment = require('moment');
 const compression = require('compression');
 const helmet = require('helmet');
-const dotenv = require('dotenv').config();
+const dotenv = require('dotenv');
+const passport = require('passport');
+
+dotenv.config();
+require('./passport')(passport);
 
 // modules for logging
 const fs = require('fs');
@@ -46,6 +50,11 @@ function initMiddleware(app) {
     }
   }));
 
+  // use passport for oAuth (Google) Signin
+  // Future Plans GitHub
+  app.use(passport.initialize());
+  app.use(passport.session());
+
   // usage variables
   app.use((req, res, next) => {
     res.locals.req = req;
@@ -53,7 +62,7 @@ function initMiddleware(app) {
     res.locals.toastMessage = req.flash('toastMessage');
     res.locals.toastStatus = req.flash('toastStatus');
     if (res.locals.toastMessage != "" && res.locals.toastStatus != "" && 'dev' === process.env.NODE_ENV) {
-      debug('Flash Message: ' + res.locals.toastMessage + ' ' + res.locals.toastStatus);
+      console.log('Flash Message: ' + res.locals.toastMessage + ' ' + res.locals.toastStatus);
     }
     next();
   });
