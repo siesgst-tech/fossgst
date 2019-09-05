@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
-const debug = require('debug')('fossgst:db');
 
 // Handles all the database operations in the app.js
 function initDatabase () {
 
   // Starting Database Connections
-  debug('Initializing Database Connection');
+  console.log('Initializing Database Connection');
 
   // Connection Configuration for MongoDB
   const options = {
@@ -28,32 +27,32 @@ function initDatabase () {
   // Connection Response Types
   // For handling and reporting conection successful
   connection.on('connected',() => {
-    debug('Trying to connect: ' + dbUri);
-    debug('Database Connection Status: Successful');
-    debug('Database Connnection Established');
+    console.log('Trying to connect: ' + dbUri);
+    console.log('Database Connection Status: Successful');
+    console.log('Database Connnection Established');
 
     // Ending Database Connections
-    // debug('Finished Database Connectivity');
+    // console.log('Finished Database Connectivity');
   });
 
   // For handling and reporting error
   connection.on('error',(err) => {
-    debug('Trying to connect: ' + dbUri);
-    debug('Database Connection Status: Unsuccessful');
-    debug('Database Connection Error: ' + err);
+    console.log('Trying to connect: ' + dbUri);
+    console.log('Database Connection Status: Unsuccessful');
+    console.log('Database Connection Error: ' + err);
 
     // Ending Database Connections
-    // debug('Finished Database Connectivity');
+    // console.log('Finished Database Connectivity');
   });
 
   // For handling and reporting disconnection
   connection.on('disconnected', () => {
-    debug('Trying to connect: ' + dbUri);
-    debug('Database Connection Status: Unsuccessful');
-    debug('Database Connection: Disconnected');
+    console.log('Trying to connect: ' + dbUri);
+    console.log('Database Connection Status: Unsuccessful');
+    console.log('Database Connection: Disconnected');
 
     // Ending Database Connections
-    // debug('Finished Database Connectivity');
+    // console.log('Finished Database Connectivity');
   });
 };
 

@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const session = require('cookie-session');
 const flash = require('connect-flash');
 const moment = require('moment');
-const debug = require('debug')('fossgst:mw');
 const compression = require('compression');
 const helmet = require('helmet');
 const dotenv = require('dotenv').config();
@@ -110,7 +109,7 @@ function initMiddleware(app) {
   // and also log to console
   app.use(logger('dev'));
 
-  debug('Setting up middlewares done!');
+  console.log('Setting up middlewares done!');
 }
 
 module.exports = initMiddleware;
