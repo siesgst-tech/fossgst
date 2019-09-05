@@ -1,4 +1,6 @@
 const express = require('express');
+const debug = require('debug')('hi');
+debug('hello');
 
 const initMiddleware = require('./config/middleware');
 const initDatabase = require('./config/database');
