@@ -32,29 +32,37 @@
       </div>
       <div class="uk-navbar-right">
         <ul class="uk-navbar-nav">
-          <li><a href="#">About</a></li>
+          <li><a href="/about">About</a></li>
           <li>
-            <a href="#">Events</a>
+            <a href="/events">Events</a>
             <div class="uk-navbar-dropdown">
               <ul class="uk-nav uk-navbar-dropdown-nav">
-                <li class="uk-active"><a href="#">Active</a></li>
-                <li><a href="#">Item</a></li>
-                <li><a href="#">Item</a></li>
+                <li><a href="/events#XDaysOfCode">XDaysOfCode</a></li>
+                <li><a href="/leaderboard">The Leaderboard</a></li>
+                <li><a href="/hacktoberfest">Hacktoberfest</a></li>
               </ul>
             </div>
           </li>
+          <li><a href="/projects">Projects</a></li>
+
+          <% if (req.session.loggedIn && req.session.user) {
+            let user = req.session.user;
+          %>
           <li>
-            <a href="#">Projects</a>
+            <a href="#"><%= user.fname%></a>
             <div class="uk-navbar-dropdown">
               <ul class="uk-nav uk-navbar-dropdown-nav">
-                <li class="uk-active"><a href="#">Active</a></li>
-                <li><a href="#">Item</a></li>
-                <li><a href="#">Item</a></li>
+                <li><a href="/user/profile">Profile</a></li>
+                <li><a href="/user/settings">Settings</a></li>
+                <li><a href="/signout">Signout</a></li>
               </ul>
             </div>
           </li>
+          <% } else { %>
           <li><a href="/google/signin">Login</a></li>
           <li><a href="/register">Register</a></li>
+          <% } %>
+
         </ul>
       </div>
     </nav>
@@ -78,11 +86,16 @@
       <div class="uk-background-default uk-offcanvas-bar uk-flex uk-flex-column">
         <ul class="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
           <li class="uk-active"><a href="#" class="custom-dark">LOGO</a></li>
-          <li><a href="#" class="custom-dark">Parent</a></li>
-          <li><a href="#" class="custom-dark">Events</a></li>
-          <li><a href="#" class="custom-dark">Projects</a></li>
-          <li><a href="#" class="custom-dark">Login</a></li>
-          <li><a href="#" class="custom-dark">Register</a></li>
+          <li><a href="/events" class="custom-dark">Events</a></li>
+          <li><a href="/projects" class="custom-dark">Projects</a></li>
+          <% if (req.session.loggedIn && req.session.user) { %>
+          <li><a href="/user/profile" class="custom-dark">Profile</a></li>
+          <li><a href="/user/settings" class="custom-dark">Settings</a></li>
+          <li><a href="/signout" class="custom-dark">Signout</a></li>
+          <% } else { %>
+          <li><a href="/google/signin" class="custom-dark">Login</a></li>
+          <li><a href="/register" class="custom-dark">Register</a></li>
+          <% } %>
         </ul>
       </div>
     </div>
