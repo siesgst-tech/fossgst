@@ -42,16 +42,22 @@ module.exports = (passport) => {
       if (err) {
         return done(err);
       } else if (user) {
-        User.findOneAndUpdate({ 'email': profile.emails[0].value }, { 'imageUrl': profile.photos[0].value }, (err, result) => {
+        User.findOneAndUpdate({ 'email': profile.emails[0].value }, { 'imageUrl': profile.photos[0].value }, (err, doc) => {
           if (err) {
             return done(err);
           } else {
-            req.session.user = result;
-            req.session.user.imageUrl = profile.photos[0].value;
+            req.session.user = {
+              _id: doc._id,
+              email: doc.email,
+              fname: profile.name.givenName,
+              imageUrl: profile.photos[0].value,
+              tos: doc.tos,
+            };
+
             req.session.loggedIn = true;
             req.flash('toastStatus', 'success');
             req.flash('toastMessage', 'Hey ' + profile.name.givenName + ', welcome back!');
-            return done(null, result);
+            return done(null, doc);
           }
         });
       } else {
@@ -99,8 +105,14 @@ module.exports = (passport) => {
                 if (err) {
                   return done(err);
                 } else {
-                  req.session.user = doc;
-                  req.session.user.imageUrl = profile.photos[0].value;
+                  req.session.user = {
+                    _id: doc._id,
+                    email: doc.email,
+                    fname: profile.name.givenName,
+                    imageUrl: profile.photos[0].value,
+                    tos: doc.tos,
+                  };
+
                   req.session.loggedIn = true;
                   req.flash('toastStatus', 'success');
                   req.flash('toastMessage', 'Hey ' + profile.name.givenName + ', welcome back!');
@@ -110,7 +122,7 @@ module.exports = (passport) => {
             } else {
               req.flash('toastMessage', 'There is no such user');
               req.flash('toastStatus', 'error');
-              return done(null, null);      
+              return done(null, null);
             }
           });
         });
@@ -119,7 +131,7 @@ module.exports = (passport) => {
           console.error(`problem with request: ${e.message}`);
           req.flash('toastMessage', 'OOPS! Some error!');
           req.flash('toastStatus', 'error');
-          return done(null, null);      
+          return done(null, null);
         });
 
         httpReq.write(postData);

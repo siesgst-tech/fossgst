@@ -21,7 +21,8 @@ router.get('/google/signin/callback',
 router.get('/signout', (req, res) => {
   req.user = null;
   req.session.user = null;
-  req.session.loggedIn = false;
+  req.session.passport = null;
+  req.session.loggedIn = null;
 
   // To do or not to do??
   // delete req.user;
