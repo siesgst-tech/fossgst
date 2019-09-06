@@ -60,7 +60,7 @@ module.exports = (passport) => {
         // if not: Throw no such user
         const postData = querystring.stringify({
           'email': profile.emails[0].value,
-          'KEY': process.env.PORTAL_API_KEY
+          'KEY': process.env.FOSSGST_PORTAL_SECRET
         });
 
         const options = {
