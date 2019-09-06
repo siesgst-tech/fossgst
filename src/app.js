@@ -11,7 +11,7 @@ initDatabase();
 initRoutes(app);
 
 app.use((req, res) => {
-  res.render('error');
+  res.status(404).render('error');
 });
 
 module.exports = app;
