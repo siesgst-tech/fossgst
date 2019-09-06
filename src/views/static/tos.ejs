@@ -121,6 +121,7 @@
 
         <br><br>
 
+        <% if (req.session.loggedIn) { %>
         <div class="uk-clearfix">
           <div class="uk-float-left">
             <a class="uk-button uk-button-danger" href="/signout">No, I dont accept</a>
@@ -129,6 +130,7 @@
             <a class="uk-button uk-button-primary" href="/tos/accept">Yes, I accept</a>
           </div>
         </div>
+        <% } %>
 
       </div>
     </div>

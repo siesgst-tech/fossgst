@@ -6,7 +6,7 @@ const static = require('../controller/static/staticController');
 
 router.get('/', static.index);
 router.get('/tos', static.tos);
-router.get('/tos/accept', static.tosAccept);
+router.get('/tos/accept', static.isLoggedIn, static.tosAccept);
 
 // Google OAuth Sign In
 router.get('/google/signin', passport.authenticate('google', { scope: ['profile', 'email'] }));
