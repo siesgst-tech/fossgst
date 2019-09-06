@@ -5,6 +5,8 @@ const passport = require('passport');
 const static = require('../controller/static/staticController');
 
 router.get('/', static.index);
+router.get('/tos', static.tos);
+router.get('/tos/accept', static.tosAccept);
 
 // Google OAuth Sign In
 router.get('/google/signin', passport.authenticate('google', { scope: ['profile', 'email'] }));
@@ -27,6 +29,7 @@ router.get('/signout', (req, res) => {
   // To do or not to do??
   // delete req.user;
   // delete req.session;
+  // nope dont do that! never directly delete req.session, modules like flash(connect-flash) requires to have session
 
   req.flash('toastMessage', 'Thanks for visiting. See you soon');
 
