@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
+const static = require('../controller/static/staticController');
+
+router.get('/', static.index);
+
 // Google OAuth Sign In
 router.get('/google/signin', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
