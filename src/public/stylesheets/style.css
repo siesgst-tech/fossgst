@@ -1,6 +1,6 @@
 @font-face {
   font-family: kenyan-coffee;
-  src: url('../fonts/kenyan coffee rg.ttf');
+  src: url('/assets/fonts/kenyan coffee rg.ttf');
 }
 
 .font-primary {

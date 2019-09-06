@@ -76,7 +76,7 @@ function initMiddleware(app) {
 
 
   // although this stuff is dependant on ENV, but for now its everything will be served from here
-  app.use(express.static(path.join(__dirname, '../public')));
+  app.use('/assets', express.static(path.join(__dirname, '../public')));
   // serve favicon from ./public/assets
   // app.use(favicon(path.join(__dirname, '../public', 'assets', 'favicon.ico')));
   // uncomment when favicon is ready
