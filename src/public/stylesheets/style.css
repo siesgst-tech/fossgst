@@ -1,3 +1,18 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+footer {
+  /* default padding for top and bottom is 70px */
+  padding: 40px !important;
+}
+
 @font-face {
   font-family: kenyan-coffee;
   src: url('/assets/fonts/kenyan coffee rg.ttf');

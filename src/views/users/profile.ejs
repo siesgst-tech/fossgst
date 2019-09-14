@@ -1,0 +1,18 @@
+<%- include('../layout/home_header'); -%>
+
+<main>
+  <div class="uk-container uk-container-xsmall">
+    <div class="uk-section uk-section-default">
+      <span class="uk-card-title"><%= session.user.fname%></span>
+      <br>
+      Joined: <%= moment(session.user.createdAt)%>
+      <img src="<%= session.user.imageUrl%>" alt="user iamge" width="10%">
+    </div>
+
+    <div class="uk-section uk-section-default">
+      <h3>Leaderboard Score</h3>
+    </div>
+  </div>
+</main>
+
+<%- include('../layout/home_footer'); -%>
