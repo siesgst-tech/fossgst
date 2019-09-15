@@ -68,14 +68,16 @@
               <div class="uk-margin">
                 <label class="uk-form-label" for="xdoc-url">Repository URL</label>
                 <div class="uk-form-controls">
-                  <input class="uk-input uk-form-width-large" id="xdoc-url" type="text" placeholder="https://github.com/my/repo" required>
+                  <input class="uk-input uk-form-width-large" id="xdoc-url" type="text"
+                    placeholder="https://github.com/my/repo" required>
                 </div>
               </div>
 
               <div class="uk-margin">
                 <label class="uk-form-label" for="xdoc-description">XDoC Description</label>
                 <div class="uk-form-controls">
-                  <textarea class="uk-textarea uk-form-width-large" id="xdoc-description" rows="5" placeholder="What are you planing to do in this XDoC Challange?" required></textarea>
+                  <textarea class="uk-textarea uk-form-width-large" id="xdoc-description" rows="5"
+                    placeholder="What are you planing to do in this XDoC Challange?" required></textarea>
                 </div>
               </div>
 
@@ -90,7 +92,7 @@
       <!-- Project section -->
       <div>
         <h3>#Projects</h3>
-        <ul uk-tab>
+        <ul uk-tab="active: 2">
           <li><a href="#">Activities</a></li>
           <li><a href="#">Projects</a></li>
           <li><a href="#">Start Project</a></li>
@@ -125,8 +127,34 @@
             <% } %>
           </li>
           <li>
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur, sed
-            do eiusmod.
+            <form class="uk-form-stacked" action="/user/project/new" method="POST">
+
+              <div class="uk-margin">
+                <label class="uk-form-label" for="project-title">Title</label>
+                <div class="uk-form-controls">
+                  <input class="uk-input uk-form-width-large" id="project-title" type="text" placeholder="Project Title" required>
+                </div>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label" for="project-url">Repository URL</label>
+                <div class="uk-form-controls">
+                  <input class="uk-input uk-form-width-large" id="project-url" type="text"
+                    placeholder="https://github.com/my/repo" required>
+                </div>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label" for="project-description">Project Description</label>
+                <div class="uk-form-controls">
+                  <textarea class="uk-textarea uk-form-width-large" id="project-description" rows="5"
+                    placeholder="What are you planing to do in this Project?" required></textarea>
+                </div>
+              </div>
+
+              <button class="uk-button uk-button-primary">Submit</button>
+
+            </form>
           </li>
         </ul>
       </div>
