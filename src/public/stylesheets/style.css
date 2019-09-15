@@ -13,6 +13,10 @@ footer {
   padding: 40px !important;
 }
 
+.button-primary-hover:hover {
+  border-color: #1E87F0 !important;
+}
+
 @font-face {
   font-family: kenyan-coffee;
   src: url('/assets/fonts/kenyan coffee rg.ttf');

@@ -9,12 +9,128 @@
           <br>
           Joined: <%= moment(session.user.createdAt).format('Do MMM YYYY')%>
         </div>
-        <div class="uk-width-1-4@s">
+        <div class="uk-width-1-4@s uk-text-center">
           <img src="<%= session.user.imageUrl%>" alt="user iamge" width="50%">
+          <br>
+          <small><a href="settings">Settings</a></small>
         </div>
       </div>
 
-      <h3>Leaderboard Score</h3>
+      <br><br>
+      <!-- XDoC section -->
+      <div>
+        <h3>#XDaysOfCode</h3>
+        <ul uk-tab="animation: uk-animation-fade">
+          <li><a href="#">Activities</a></li>
+          <li><a href="#">My Challenges</a></li>
+          <li><a href="#">Start XDoC</a></li>
+        </ul>
+
+        <ul class="uk-switcher uk-margin">
+          <li>
+            <% if (xdoc.activities.length===0) { %>
+            <div class="uk-text-center">
+              * So empty *
+              <br><a class="uk-button uk-button-text" uk-tab-item="2">Start a new XDoC</a>
+            </div>
+            <% } else { } %>
+          </li>
+          <li>
+            <% if ((xdoc.challenges.active).length===0) { %>
+            <div class="uk-text-center">
+              Ohh! No active XDoC challange...
+              <br><a class="uk-button uk-button-text" uk-tab-item="2">Start a new XDoC</a>
+            </div>
+            <% } else { } %>
+
+            <% if ((xdoc.challenges.past).length > 0) { %>
+            Past XDoCs
+            <hr>
+            <% } %>
+          </li>
+          <li>
+            <form class="uk-form-stacked" action="/user/xdoc/new" method="POST">
+
+              <div class="uk-margin">
+                <label class="uk-form-label" for="xdoc-x">X (Number of days)</label>
+                <div class="uk-form-controls">
+                  <input class="uk-input uk-form-width-medium" id="xdoc-x" type="number" value="30" required>
+                </div>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label" for="xdoc-start">Start Date</label>
+                <div class="uk-form-controls">
+                  <input class="uk-input uk-form-width-medium" id="xdoc-start" type="date">
+                </div>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label" for="xdoc-url">Repository URL</label>
+                <div class="uk-form-controls">
+                  <input class="uk-input uk-form-width-large" id="xdoc-url" type="text" placeholder="https://github.com/my/repo" required>
+                </div>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label" for="xdoc-description">XDoC Description</label>
+                <div class="uk-form-controls">
+                  <textarea class="uk-textarea uk-form-width-large" id="xdoc-description" rows="5" placeholder="What are you planing to do in this XDoC Challange?" required></textarea>
+                </div>
+              </div>
+
+              <button class="uk-button uk-button-primary">Submit</button>
+
+            </form>
+          </li>
+        </ul>
+      </div>
+
+      <br><br>
+      <!-- Project section -->
+      <div>
+        <h3>#Projects</h3>
+        <ul uk-tab>
+          <li><a href="#">Activities</a></li>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#">Start Project</a></li>
+        </ul>
+
+        <ul class="uk-switcher uk-margin">
+          <li>
+            <% if (projects.activities.length===0) { %>
+            <div class="uk-text-center">
+              Haven't participated in projects yet?
+              <br><a class="uk-button uk-button-text">Participate now</a>
+            </div>
+            <% } else { } %>
+          </li>
+          <li>
+            <% if (projects.participated.length===0) { %>
+            <div class="uk-text-center">
+              Haven't participated in projects yet?
+              <br><a class="uk-button uk-button-text">Participate now</a>
+            </div>
+            <% } else { } %>
+
+            My Projects
+            <hr>
+            <% if (projects.my.length === 0) { %>
+            <div class="uk-text-center">
+              Got something that people could enjoy build?
+              <br><a class="uk-button uk-button-text" uk-tab-item="2">Add project</a>
+            </div>
+            <% } else { %>
+
+            <% } %>
+          </li>
+          <li>
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur, sed
+            do eiusmod.
+          </li>
+        </ul>
+      </div>
+
     </div>
   </div>
 </main>
