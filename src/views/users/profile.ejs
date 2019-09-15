@@ -7,9 +7,21 @@
         <div class="uk-width-3-4@s">
           <span class="uk-card-title"><%= session.user.fname%></span>
           <br>
+          <% if (session.user.ghProfile) {
+            let profile = session.user.ghProfile; %>
           <big>
-            <span uk-icon="github"></span> /<a href="https://githhub.com/<%= session.user.github||'signup'%>"><%= session.user.github || 'Add your GitHub profile' %></a>
+            <span uk-icon="github"></span> /<a href="https://github.com/<%= profile%>" target="_blank"><%= profile%></a>
           </big>
+          <% } else {
+            let clientId = process.env.GITHUB_DEV_CLIENT_ID;
+            if (process.env.NODE_ENV !== 'dev') {
+              clientId = process.env.GITHUB_CLIENT_ID;
+            }
+            const state = session.user._id.substring(0,10);
+            const link = `https://github.com/login/oauth/authorize?client_id=${clientId}&state=${state}`;
+          %>
+            <span uk-icon="github"></span> <a href="<%= link%>"> Connect your GitHub account </a>
+          <% } %>
           <br>
           Joined: <%= moment(session.user.createdAt).format('Do MMM YYYY')%>
         </div>

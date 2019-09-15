@@ -20,6 +20,10 @@ router.get('/google/signin/callback',
   })
 );
 
+// GitHub-FOSSGST connection
+router.get('/github/oauth/callback', auth.isLoggedIn, static.githubCallback);
+router.get('/github/getuser', auth.isLoggedIn, static.githubGetUser);
+
 // Sign Out
 router.get('/signout', (req, res) => {
   req.user = null;

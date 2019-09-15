@@ -18,6 +18,12 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  ghProfile: {
+    type: String
+  },
+  ghToken: {
+    type: String
+  }
 }, {
   timestamps: true
 });
