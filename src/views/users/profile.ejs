@@ -3,13 +3,17 @@
 <main>
   <div class="uk-container uk-container-xsmall">
     <div class="uk-section uk-section-default">
-      <span class="uk-card-title"><%= session.user.fname%></span>
-      <br>
-      Joined: <%= moment(session.user.createdAt)%>
-      <img src="<%= session.user.imageUrl%>" alt="user iamge" width="10%">
-    </div>
+      <div class="uk-grid-divider" uk-grid>
+        <div class="uk-width-3-4@s">
+          <span class="uk-card-title"><%= session.user.fname%></span>
+          <br>
+          Joined: <%= moment(session.user.createdAt).format('Do MMM YYYY')%>
+        </div>
+        <div class="uk-width-1-4@s">
+          <img src="<%= session.user.imageUrl%>" alt="user iamge" width="50%">
+        </div>
+      </div>
 
-    <div class="uk-section uk-section-default">
       <h3>Leaderboard Score</h3>
     </div>
   </div>
