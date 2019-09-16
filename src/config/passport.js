@@ -52,6 +52,8 @@ module.exports = (passport) => {
               fname: profile.name.givenName,
               imageUrl: profile.photos[0].value,
               tos: doc.tos,
+              ghProfile: doc.ghProfile,
+              ghToken: doc.ghToken
             };
 
             req.session.loggedIn = true;
