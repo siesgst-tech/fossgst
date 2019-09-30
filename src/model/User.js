@@ -19,7 +19,8 @@ const userSchema = new mongoose.Schema({
     default: false
   },
   ghProfile: {
-    type: String
+    type: String,
+    unique: true,
   },
   ghToken: {
     type: String
