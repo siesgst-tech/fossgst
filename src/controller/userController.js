@@ -43,6 +43,9 @@ module.exports.xdocNew = function (req, res) {
   }).catch((err) => {
     // TODO: Handle Error
     // console.log(err);
+
+    // Error Code 11000: duplicate key error
+
     req.flash('toastMessage', 'Oops some error.');
     req.flash('toastStatus', 'error');
     res.redirect('back');
