@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    index: true
   },
   imageUrl: {
     type: String,
@@ -21,6 +22,7 @@ const userSchema = new mongoose.Schema({
   ghProfile: {
     type: String,
     unique: true,
+    index: true
   },
   ghToken: {
     type: String

@@ -8,7 +8,9 @@ const xdocSchema = new mongoose.Schema({
   },
   repo: {
     type: String,
-    required: true
+    required: true,
+    unique: true,
+    index: true
   },
   x: {
     type: Number,
