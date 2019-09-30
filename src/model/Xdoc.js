@@ -14,7 +14,7 @@ const xdocSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  startTime: {
+  startDate: {
     type: Date,
     default: Date.now()
   },
