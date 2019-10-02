@@ -37,18 +37,39 @@ function getActiveXDoCs() {
   });
 }
 
-function checkXDoC(xdoc) {
+Array.prototype.filterMapCommits = function (user) {
+  if (this === null) {
+    throw new TypeError('this is null or not defined');
+  }
+
+  let arr = [];
+
+  for (let i = 0; i < this.length; i++) {
+    const e = this[i];
+    if (e.parents.length <= 1 && e.author.login === user.ghProfile) {
+      const obj = {
+        sha: e.sha,
+        url: e.url
+      };
+      arr.push(obj);
+    }
+  }
+
+  return arr;
+}
+
+function fetchCommits(xdoc) {
   return new Promise((resolve, reject) => {
     const query = qs.stringify({
       author: xdoc.userId.ghProfile,
       since: sod.subtract(1, 'days').toISOString(),
-      until: sod.toISOString(),
+      until: sod.add(3, 'days').toISOString(),
     });
 
     const options = {
       hostname: 'api.github.com',
       port: 443,
-      path: `/repos/${xdoc.userId.ghProfile}/${xdoc.repo}/commits?${query}`,
+      path: `/repos/${xdoc.repo}/commits?${query}`,
       method: 'GET',
       headers: {
         'Authorization': `token ${xdoc.userId.ghToken}`,
@@ -66,7 +87,11 @@ function checkXDoC(xdoc) {
       });
 
       res.on('end', () => {
-        resolve(JSON.parse(data));
+        // filter commit date before forwarding it
+        let commits = JSON.parse(data);
+        commits = commits.filterMapCommits(xdoc.userId);
+
+        resolve(commits);
       });
     });
 
@@ -87,7 +112,7 @@ async function start() {
     // loop over xdocs and chech them individually
     let promises = [];
     xdocs.forEach(x => {
-      promises.push(checkXDoC(x));
+      promises.push(fetchCommits(x));
     });
 
     Promise.all(promises).then((success) => {
