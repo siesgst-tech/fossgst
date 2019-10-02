@@ -31,4 +31,4 @@ const xdocActSchema = new mongoose.Schema({
   timestamps: true
 });
 
-module.exports = mongoose.model('XDoC', xdocActSchema);
+module.exports = mongoose.model('XDoCActivities', xdocActSchema);

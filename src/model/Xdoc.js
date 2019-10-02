@@ -20,6 +20,10 @@ const xdocSchema = new mongoose.Schema({
     type: Date,
     default: Date.now()
   },
+  endDate: {
+    type: Date,
+    required: true,
+  },
   description: {
     type: String
   }
