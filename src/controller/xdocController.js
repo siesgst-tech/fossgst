@@ -56,6 +56,15 @@ Promise.any = function (promises) {
   });
 };
 
+Promise.allSettled = function (promises) {
+  return Promise.all(promises.map((promise) => {
+    return promise
+      .then(val => ({ status: 'fulfilled', value: val }))
+      .catch(err => ({ status: 'rejected', error: err }));
+  })
+  );
+}
+
 async function getActiveXDoCs() {
   const condition = {
     endDate: {
@@ -89,15 +98,9 @@ async function handleXDoC(xdoc) {
       promises.push(fetchCheckCommit(c, xdoc.userId.ghToken));
     });
 
-    Promise.any(promises).then(() => {
-      // atleast one of the comn
-      console.log('atleast one valid commit');
-
-      return Promise.resolve();
-    }).catch(() => {
-      // no valid commits
-      console.log('no valid commit');
-    });
+    Promise.allSettled(promises).then(d=> {
+      console.log(d);
+    })
   } catch (err) {
     console.log(err);
   }
@@ -168,9 +171,9 @@ function fetchCheckCommit(commitObj, token) {
         let commit = JSON.parse(data);
 
         if (checkCommit(commit)) {
-          resolve();
+          resolve([commit.sha, true]);
         } else {
-          reject();
+          reject([commit.sha, false]);
         }
       });
     });
@@ -194,6 +197,10 @@ function checkCommit(commit) {
   }
 
   return false;
+}
+
+function updateXDoCActivity(xdoc, commits, validity) {
+  // Activities.find({xdocId:xdoc._id})
 }
 
 async function start() {
