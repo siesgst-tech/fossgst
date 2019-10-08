@@ -11,7 +11,8 @@ function initDatabase () {
     reconnectTries: 10,
     useNewUrlParser: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useUnifiedTopology: true
   };
 
   let dbUri = process.env.DB_DEV_URI;
