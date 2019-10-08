@@ -36,6 +36,10 @@ Array.prototype.filterMapCommits = function (user) {
   return arr;
 }
 
+Array.prototype.last = function () {
+  return this[this.length - 1];
+}
+
 Promise.any = function (promises) {
   let rejectCount = 0;
   let reasons = [];
@@ -85,14 +89,14 @@ async function handleXDoC(xdoc) {
       promises.push(fetchCheckCommit(c, xdoc.userId.ghToken));
     });
 
-    Promise.any(promises).then((success) => {
+    Promise.any(promises).then(() => {
       // atleast one of the comn
-      // console.log(success);
+      console.log('atleast one valid commit');
 
-      return Promise.resolve(success);
-    }).catch((err) => {
-
-      // console.log(err)
+      return Promise.resolve();
+    }).catch(() => {
+      // no valid commits
+      console.log('no valid commit');
     });
   } catch (err) {
     console.log(err);
@@ -162,9 +166,12 @@ function fetchCheckCommit(commitObj, token) {
 
       res.on('end', () => {
         let commit = JSON.parse(data);
-        checkCommit(commit);
 
-        // resolve(commits);
+        if (checkCommit(commit)) {
+          resolve();
+        } else {
+          reject();
+        }
       });
     });
 
@@ -173,7 +180,7 @@ function fetchCheckCommit(commitObj, token) {
   });
 }
 
-async function checkCommit(commit) {
+function checkCommit(commit) {
   if (commit.parents.length > 1)
     return false;
 
@@ -182,7 +189,7 @@ async function checkCommit(commit) {
     const f = commit.files[i];
     let ext = f.filename.split('.');
 
-    if (ext.length > 1 && !exts.includes(ext))
+    if (ext.length > 1 && !exts.includes(ext.last()))
       return true;
   }
 
