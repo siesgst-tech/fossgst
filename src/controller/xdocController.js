@@ -77,17 +77,17 @@ async function getActiveXDoCs() {
 async function handleXDoC(xdoc) {
   // console.log(xdoc);
   try {
-    const commits = await fetchCommits(xdoc);
-    console.log(commits);
+    const commits = await fetchAllCommits(xdoc);
+    // console.log(commits);
 
     let promises = []
     commits.forEach((c) => {
-      promises.push(checkCommit(c));
+      promises.push(fetchCheckCommit(c, xdoc.userId.ghToken));
     });
 
     Promise.any(promises).then((success) => {
       // atleast one of the comn
-      console.log(success)
+      // console.log(success);
 
       return Promise.resolve(success);
     }).catch((err) => {
@@ -99,7 +99,7 @@ async function handleXDoC(xdoc) {
   }
 }
 
-function fetchCommits(xdoc) {
+function fetchAllCommits(xdoc) {
   return new Promise((resolve, reject) => {
     const query = qs.stringify({
       author: xdoc.userId.ghProfile,
@@ -145,10 +145,36 @@ function fetchCommits(xdoc) {
   });
 }
 
-function checkCommit() {
+function fetchCheckCommit(commitObj, token) {
   return new Promise((resolve, reject) => {
-    reject('hi');
+    const options = {
+      method: 'GET',
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'FOSSGST'
+      }
+    };
+
+    const req = https.request(commitObj.url, options, res => {
+      let data = '';
+      res.on('data', (d) => { data += d; });
+
+      res.on('end', () => {
+        let commit = JSON.parse(data);
+        checkCommit(commit);
+
+        // resolve(commits);
+      });
+    });
+
+    req.on('error', (err) => { reject(err); });
+    req.end();
   });
+}
+
+async function checkCommit(commit) {
+
 }
 
 async function start() {
