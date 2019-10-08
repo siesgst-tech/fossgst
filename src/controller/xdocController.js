@@ -15,28 +15,6 @@ const Activities = require('../model/XdocActivity');
 
 const sod = moment().startOf('day');
 
-function getActiveXDoCs() {
-  const condition = {
-    endDate: {
-      $gte: sod.set('hours', '2').subtract(1, 'days')
-    }
-  };
-  // console.log(condition);
-
-  return new Promise((resolve, reject) => {
-    XDOC.find(condition, 'x repo userId')
-      .populate('userId', { ghProfile: 1, ghToken: 1, _id: 0 })
-      .lean().then((xdocs) => {
-        // console.log(xdocs);
-        resolve(xdocs);
-      }).catch((err) => {
-        // TODO: Handle error
-        // console.log(err);
-        reject(err);
-      });
-  });
-}
-
 Array.prototype.filterMapCommits = function (user) {
   if (this === null) {
     throw new TypeError('this is null or not defined');
@@ -58,11 +36,74 @@ Array.prototype.filterMapCommits = function (user) {
   return arr;
 }
 
+Promise.any = function (promises) {
+  let rejectCount = 0;
+  let reasons = [];
+
+  return new Promise((resolve, reject) => {
+    promises.forEach((promise) => {
+      promise.then(resolve).catch((err) => {
+        rejectCount++;
+        reasons.push(err)
+        if (rejectCount === promises.length)
+          reject(reasons);
+      });
+    });
+  });
+};
+
+async function getActiveXDoCs() {
+  const condition = {
+    endDate: {
+      $gte: sod.set('hours', '2').subtract(1, 'days')
+    }
+  };
+  // console.log(condition);
+
+  return new Promise((resolve, reject) => {
+    XDOC.find(condition, 'x repo userId')
+      .populate('userId', { ghProfile: 1, ghToken: 1, _id: 0 })
+      .lean().then((xdocs) => {
+        // console.log(xdocs);
+        resolve(xdocs);
+      }).catch((err) => {
+        // TODO: Handle error
+        // console.log(err);
+        reject(err);
+      });
+  });
+}
+
+async function handleXDoC(xdoc) {
+  // console.log(xdoc);
+  try {
+    const commits = await fetchCommits(xdoc);
+    console.log(commits);
+
+    let promises = []
+    commits.forEach((c) => {
+      promises.push(checkCommit(c));
+    });
+
+    Promise.any(promises).then((success) => {
+      // atleast one of the comn
+      console.log(success)
+
+      return Promise.resolve(success);
+    }).catch((err) => {
+
+      // console.log(err)
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 function fetchCommits(xdoc) {
   return new Promise((resolve, reject) => {
     const query = qs.stringify({
       author: xdoc.userId.ghProfile,
-      since: sod.subtract(1, 'days').toISOString(),
+      // since: sod.subtract(1, 'days').toISOString(),
       until: sod.add(3, 'days').toISOString(),
     });
 
@@ -104,6 +145,12 @@ function fetchCommits(xdoc) {
   });
 }
 
+function checkCommit() {
+  return new Promise((resolve, reject) => {
+    reject('hi');
+  });
+}
+
 async function start() {
   try {
     let xdocs = await getActiveXDoCs();
@@ -112,15 +159,27 @@ async function start() {
     // loop over xdocs and chech them individually
     let promises = [];
     xdocs.forEach(x => {
-      promises.push(fetchCommits(x));
+      promises.push(handleXDoC(x));
     });
 
-    Promise.all(promises).then((success) => {
-      // its success! hurray
-      console.log(success);
-    }).catch((err) => {
-      // do something with error
-    });
+    // Promise.all(promises).then((allXdocs) => {
+    //   // its success! hurray
+    //   // console.log(allXdocs);
+
+    //   promises = []
+    //   allXdocs.forEach((x) => {
+    //     promises.push(handleXDoC(x));
+    //   });
+
+    //   Promise.all(promises).then((succes) => {
+    //     // its success! hurray
+    //     console.log(succes);
+    //   }).catch((err) => {
+    //     // do something with error
+    //   });
+    // }).catch((err) => {
+    //   // do something with error
+    // });
   } catch (err) {
     // do something with error
   }
