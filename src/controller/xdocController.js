@@ -174,7 +174,19 @@ function fetchCheckCommit(commitObj, token) {
 }
 
 async function checkCommit(commit) {
+  if (commit.parents.length > 1)
+    return false;
 
+  const exts = ['md', 'info', 'example', 'txt'];
+  for (let i = 0; i < commit.files.length; i++) {
+    const f = commit.files[i];
+    let ext = f.filename.split('.');
+
+    if (ext.length > 1 && !exts.includes(ext))
+      return true;
+  }
+
+  return false;
 }
 
 async function start() {
