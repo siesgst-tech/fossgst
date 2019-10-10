@@ -13,6 +13,10 @@ footer {
   padding: 40px !important;
 }
 
+a {
+  font-family: 'roboto mono';
+}
+
 .button-primary-hover:hover {
   border-color: #1E87F0 !important;
 }
@@ -23,19 +27,27 @@ footer {
 }
 
 .font-primary {
-  font-family: 'news cycle';
+  font-family: 'news cycle' !important;
+}
+
+.font-mono {
+  font-family: 'roboto mono' !important;
+}
+
+.font-spacemono {
+  font-family: 'space mono' !important;
 }
 
 .font-kenyan {
-  font-family: kenyan-coffee;
+  font-family: kenyan-coffee !important;
 }
 
 .font-roboto {
-  font-family: roboto;
+  font-family: 'roboto' !important;
 }
 
 .font-opensans {
-  font-family: 'open sans';
+  font-family: 'open sans' !important;
 }
 
 .custom-muted {

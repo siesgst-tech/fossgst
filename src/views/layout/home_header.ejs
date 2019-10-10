@@ -9,9 +9,10 @@
 
   <!-- UIkit CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.8/css/uikit.min.css" />
-  <link
-    href="https://fonts.googleapis.com/css?family=Manjari|News+Cycle|Open+Sans|Roboto|Open+Sans+Condensed:300|Poiret+One|Raleway|Roboto+Condensed&display=swap"
-    rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Space+Mono|Roboto+Mono|News+Cycle|Open+Sans|Roboto&display=swap">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=ManjariOpen+Sans+Condensed:300|Poiret+One|Raleway|Roboto+Condensed&display=swap">
   <link rel="stylesheet" href="/assets/stylesheets/style.css" />
 
   <!-- UIkit JS -->
@@ -27,23 +28,25 @@
       style="position: relative; z-index: 980;">
       <div class="uk-navbar-left">
         <ul class="uk-navbar-nav">
-          <li class="uk-active"><a class="uk-logo" href="#">LOGO</a></li>
+          <li class="uk-active"><a class="uk-logo" href="#">
+            <img src="/assets/images/logo_test.png" width="70px">
+          </a></li>
         </ul>
       </div>
       <div class="uk-navbar-right">
         <ul class="uk-navbar-nav">
-          <li><a href="/about">About</a></li>
           <li>
-            <a href="/events">Events</a>
+            <a href="/#events">Events</a>
             <div class="uk-navbar-dropdown">
               <ul class="uk-nav uk-navbar-dropdown-nav">
-                <li><a href="/events#XDaysOfCode">XDaysOfCode</a></li>
-                <li><a href="/leaderboard">The Leaderboard</a></li>
+                <li><a href="/#events">XDaysOfCode</a></li>
                 <li><a href="/hacktoberfest">Hacktoberfest</a></li>
+                <li><a href="/#events">The Leaderboard</a></li>
               </ul>
             </div>
           </li>
-          <li><a href="/projects">Projects</a></li>
+          <li><a href="/#projects">Projects</a></li>
+          <li><a href="/#about">About</a></li>
 
           <% if (req.session.loggedIn && req.session.user) {
             let user = req.session.user;
@@ -53,14 +56,14 @@
             <div class="uk-navbar-dropdown">
               <ul class="uk-nav uk-navbar-dropdown-nav">
                 <li><a href="/user/profile">Profile</a></li>
-                <li><a href="/user/settings">Settings</a></li>
+                <li><a href="/user#settings">Settings</a></li>
                 <li><a href="/signout">Signout</a></li>
               </ul>
             </div>
           </li>
           <% } else { %>
-          <li><a href="/google/signin">Login</a></li>
-          <li><a href="/register">Register</a></li>
+          <li><a href="/google/signin">Login / Register</a></li>
+          <!-- <li><a href="/register">Register</a></li> -->
           <% } %>
 
         </ul>
@@ -71,7 +74,9 @@
       style="position: relative; z-index: 980;">
       <div class="uk-navbar-center">
         <ul class="uk-navbar-nav">
-          <li class="uk-active"><a class="uk-logo" href="#">LOGO</a></li>
+          <li class="uk-active"><a class="uk-logo" href="#">
+            <img src="/assets/images/logo_test.png" width="45px">
+          </a></li>
         </ul>
       </div>
       <div class="uk-navbar-right">
@@ -85,16 +90,18 @@
     <div id="offcanvas-nav-primary" uk-offcanvas="overlay: true">
       <div class="uk-background-default uk-offcanvas-bar uk-flex uk-flex-column">
         <ul class="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
-          <li class="uk-active"><a href="#" class="custom-dark">LOGO</a></li>
-          <li><a href="/events" class="custom-dark">Events</a></li>
-          <li><a href="/projects" class="custom-dark">Projects</a></li>
+          <li class="uk-active"><a href="#" class="custom-dark">
+            <img src="/assets/images/logo_test.png" width="50px">
+          </a></li>
+          <li><a href="/#events" class="custom-dark">Events</a></li>
+          <li><a href="/#projects" class="custom-dark">Projects</a></li>
+          <li><a href="/#about" class="custom-dark">About</a></li>
           <% if (req.session.loggedIn && req.session.user) { %>
           <li><a href="/user/profile" class="custom-dark">Profile</a></li>
-          <li><a href="/user/settings" class="custom-dark">Settings</a></li>
           <li><a href="/signout" class="custom-dark">Signout</a></li>
           <% } else { %>
-          <li><a href="/google/signin" class="custom-dark">Login</a></li>
-          <li><a href="/register" class="custom-dark">Register</a></li>
+          <li><a href="/google/signin" class="custom-dark">Login / Register</a></li>
+          <!-- <li><a href="/register" class="custom-dark">Register</a></li> -->
           <% } %>
         </ul>
       </div>
