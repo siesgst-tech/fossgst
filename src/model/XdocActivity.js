@@ -26,6 +26,11 @@ const xdocActSchema = new mongoose.Schema({
   validity: {
     type: Boolean,
     require: true
+  },
+  type: {
+    type: String,
+    enum: ['new', 'existing'],
+    default: 'existing'
   }
 }, {
   timestamps: true
