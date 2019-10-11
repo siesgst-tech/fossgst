@@ -49,7 +49,21 @@
               * So empty *
               <br><a class="uk-button uk-button-text" uk-tab-item="2">Start a new XDoC</a>
             </div>
-            <% } else { } %>
+            <% } else {
+              for (let i=0; i<xdoc.activities.length; i++) {
+                const act = xdoc.activities[i];
+                if (act.type=='new') { %>
+                  <article class="uk-comment uk-comment-primary uk-background-primary uk-light">
+                    Started a new XDoC Challange! (<%= moment(act.createdAt).format('Do MMM YYYY')%>)
+                  </article>
+                  <% } else { %>
+                  <article class="uk-comment uk-comment-primary uk-background-muted">
+                    Earned <%=act.point%> point(s). (<%= moment(act.createdAt).format('Do MMM YYYY')%>)
+                  </article>
+                <% } %>
+                <br>
+              <% }
+            } %>
           </li>
           <li>
             <% if ((xdoc.challenges.active).length===0) { %>

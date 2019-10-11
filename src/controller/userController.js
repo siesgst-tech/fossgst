@@ -23,8 +23,9 @@ module.exports.profile = function (req, res) {
     const xdocIds = xdocs.map(x => x._id);
     // console.log(xdocIds);
 
-    Activity.find({xdocId:{$in:xdocIds}}).sort({createdAt:-1}).then((activities) => {
+    Activity.find({xdocId:{$in:xdocIds}}).sort({createdAt:1}).limit(10).then((activities) => {
       // console.log(activities);
+      activities = activities.sort((a,b)=>new Date(b.createdAt) - new Date(a.createdAt));
       let xdoc = {
         activities: activities,
         challenges: {
@@ -46,7 +47,7 @@ module.exports.profile = function (req, res) {
       res.redirect('/');
     });
   }).catch((err) => {
-    console.log(err);
+    // console.log(err);
     req.flash('toastMessage', 'Oops some error.');
     req.flash('toastStatus', 'danger');
     res.redirect('/');
@@ -94,9 +95,23 @@ module.exports.xdocNew = function (req, res) {
     } else {
       XDOC.create(xdoc).then((doc) => {
         // console.log(doc);
-        req.flash('toastMessage', 'New XDoC Challange added.');
-        req.flash('toastStatus', 'success');
-        res.redirect('/user/profile');
+        const activity = {
+          xdocId: doc._id,
+          point: 0,
+          validate: true,
+          type: 'new'
+        };
+
+        Activity.create(activity).then((act) => {
+          // console.log(act);
+          req.flash('toastMessage', 'New XDoC Challange added.');
+          req.flash('toastStatus', 'success');
+          res.redirect('/user/profile');
+        }).catch((err) => {
+          req.flash('toastMessage', 'Oops some error.');
+          req.flash('toastStatus', 'danger');
+          res.redirect('back');
+        });
       }).catch((err) => {
         // TODO: Handle Error
         // console.log(err);

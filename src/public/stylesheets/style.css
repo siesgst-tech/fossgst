@@ -13,6 +13,11 @@ footer {
   padding: 40px !important;
 }
 
+.uk-comment-primary {
+  /* default padding is 30px */
+  padding: 10px 30px;
+}
+
 a {
   /* font-family: 'space mono'; */
   /* font-family: 'roboto mono'; */
