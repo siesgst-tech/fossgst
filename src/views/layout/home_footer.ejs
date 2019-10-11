@@ -10,4 +10,15 @@
   </footer>
 </body>
 
+<script>
+  <% if (toastMessage != '') { %>
+  UIkit.notification({
+    message: '<%=toastMessage%>',
+    status: '<%=toastStatus%>',
+    pos: 'top-right',
+    timeout: 5000
+  });
+  <% } %>
+</script>
+
 </html>

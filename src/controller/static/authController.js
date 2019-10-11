@@ -6,7 +6,7 @@ function isLoggedIn (req, res, next) {
     return true;
   } else {
     req.flash('toastMessage', 'You must Sign In to Continue!');
-    req.flash('toastStatus', 'error');
+    req.flash('toastStatus', 'danger');
     res.redirect('/');
     return false;
   }

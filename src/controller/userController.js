@@ -30,7 +30,7 @@ module.exports.xdocNew = function (req, res) {
   // check if the user has connected his/her GitHub account
   if (!user.ghProfile) {
     req.flash('toastMessage', 'Connect your GitHub account first.');
-    req.flash('toastStatus', 'error');
+    req.flash('toastStatus', 'danger');
     res.redirect('/user/profile');
     return;
   }
@@ -53,11 +53,11 @@ module.exports.xdocNew = function (req, res) {
   XDOC.findOne({ userId: user._id, endDate: { $gte: moment().toISOString() } }, (err, doc) => {
     if (err) {
       req.flash('toastMessage', 'Oops some error.');
-      req.flash('toastStatus', 'error');
+      req.flash('toastStatus', 'danger');
       res.redirect('back');
     } else if (doc) {
       req.flash('toastMessage', 'You alread have an active XDoC.');
-      req.flash('toastStatus', 'error');
+      req.flash('toastStatus', 'danger');
       res.redirect('back');
     } else {
       XDOC.create(xdoc).then((doc) => {
@@ -72,11 +72,11 @@ module.exports.xdocNew = function (req, res) {
         // Error Code 11000: duplicate key error
         if (err.code === 11000) {
           req.flash('toastMessage', 'A XDoC in same repo exists.');
-          req.flash('toastStatus', 'error');
+          req.flash('toastStatus', 'danger');
           res.redirect('back');
         } else {
           req.flash('toastMessage', 'Oops some error.');
-          req.flash('toastStatus', 'error');
+          req.flash('toastStatus', 'danger');
           res.redirect('back');
         }
       });

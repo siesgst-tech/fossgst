@@ -88,7 +88,7 @@ module.exports.githubCallback = function (req, res) {
       if (resp.error) {
         // TODO: handle error
         req.flash('toastMessage', 'There is no such user');
-        req.flash('toastStatus', 'error');
+        req.flash('toastStatus', 'danger');
         res.send('error');
       } else {
         req.session.user.ghToken = resp.access_token;
@@ -100,7 +100,7 @@ module.exports.githubCallback = function (req, res) {
   httpReq.on('error', (e) => {
     // console.error(`problem with request: ${e.message}`);
     req.flash('toastMessage', 'OOPS! Some error!');
-    req.flash('toastStatus', 'error');
+    req.flash('toastStatus', 'danger');
     res.send(e);
   });
 
@@ -141,14 +141,14 @@ module.exports.githubGetUser = function (req, res) {
       if (!resp.login) {
         // TODO: handle error
         req.flash('toastMessage', 'There is no such user');
-        req.flash('toastStatus', 'error');
+        req.flash('toastStatus', 'danger');
         res.send('error');
       } else {
         User.findByIdAndUpdate(userId, {$set: {ghProfile: resp.login, ghToken: accessToken}}, (err, doc) => {
           if (err) {
             // TODO: handle error
             req.flash('toastMessage', 'There is no such user');
-            req.flash('toastStatus', 'error');
+            req.flash('toastStatus', 'danger');
             res.send('error');
           } else {
             // console.log(doc);
@@ -168,7 +168,7 @@ module.exports.githubGetUser = function (req, res) {
   httpReq.on('error', (e) => {
     // console.error(`problem with request: ${e.message}`);
     req.flash('toastMessage', 'OOPS! Some error!');
-    req.flash('toastStatus', 'error');
+    req.flash('toastStatus', 'danger');
     res.send(e);
   });
 
