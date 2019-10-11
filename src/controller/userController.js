@@ -2,23 +2,55 @@ const moment = require('moment');
 
 const User = require('../model/User');
 const XDOC = require('../model/Xdoc');
+const Activity = require('../model/XdocActivity');
 
 module.exports.profile = function (req, res) {
-  let xdoc = {
-    activities: [],
-    challenges: {
-      active: [],
-      past: []
-    }
-  };
+  const user = req.session.user;
 
-  let projects = {
-    activities: [],
-    participated: [],
-    my: []
-  }
+  Promise.all([
+    User.findById(user._id).select({'createdAt':1}).exec(),
+    XDOC.find({userId:user._id}).exec()
+  ]).then((docs) => {
+    const user = docs[0];
+    const xdocs = docs[1]
+    // console.log(user, xdocs);
 
-  res.render('users/profile', { xdoc: xdoc, projects: projects });
+    const past = xdocs.filter(x => x.endDate < new moment());
+    // console.log(past);
+    const active = xdocs.filter(x => x.endDate >= new moment());
+    // console.log(active);
+
+    const xdocIds = xdocs.map(x => x._id);
+    // console.log(xdocIds);
+
+    Activity.find({xdocId:{$in:xdocIds}}).sort({createdAt:-1}).then((activities) => {
+      // console.log(activities);
+      let xdoc = {
+        activities: activities,
+        challenges: {
+          active: active,
+          past: past
+        }
+      };
+
+      let projects = {
+        activities: [],
+        participated: [],
+        my: []
+      };
+
+      res.render('users/profile', { user: user, xdoc: xdoc, projects: projects });
+    }).catch((err) => {
+      req.flash('toastMessage', 'Oops some error.');
+      req.flash('toastStatus', 'danger');
+      res.redirect('/');
+    });
+  }).catch((err) => {
+    console.log(err);
+    req.flash('toastMessage', 'Oops some error.');
+    req.flash('toastStatus', 'danger');
+    res.redirect('/');
+  });
 }
 
 module.exports.xdocNew = function (req, res) {

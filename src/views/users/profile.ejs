@@ -23,7 +23,7 @@
             <span uk-icon="github"></span> <a href="<%= link%>"> Connect your GitHub account </a>
           <% } %>
           <br>
-          Joined: <%= moment(session.user.createdAt).format('Do MMM YYYY')%>
+          Joined: <%= moment(user.createdAt).format('Do MMM YYYY')%>
         </div>
         <div class="uk-width-1-4@s uk-text-center">
           <img src="<%= session.user.imageUrl%>" alt="user iamge" width="50%">
@@ -57,12 +57,36 @@
               Ohh! No active XDoC challange...
               <br><a class="uk-button uk-button-text" uk-tab-item="2">Start a new XDoC</a>
             </div>
-            <% } else { } %>
+            <% } else {
+              for (let i=0; i<(xdoc.challenges.active).length; i++) {
+                let x = xdoc.challenges.active[i]; %>
+                <div class="uk-card uikit-muted-darker uk-card-body uk-width-1-2@m">
+                  <p>
+                    <b>X</b>: <%=x.x%><br>
+                    <b>Start</b>: <%= moment(x.startDate).format('Do MMM YYYY')%><br>
+                    <b>End</b>: <%= moment(x.endDate).format('Do MMM YYYY')%><br>
+                    <b>Repo</b>: <a href="https://github.com/<%=x.repo%>" target="_blank"><i><%=x.repo%></i></a>
+                  </p>
+                </div>
+              <% } %>
+            <% } %>
 
             <% if ((xdoc.challenges.past).length > 0) { %>
+            <br><br>
             Past XDoCs
             <hr>
+            <% for (let i=0; i<(xdoc.challenges.past).length; i++) {
+              let x = xdoc.challenges.past[i]; %>
+              <div class="uk-card uikit-muted-darker uk-card-body uk-width-1-2@m">
+                <p>
+                  <b>X</b>: <%=x.x%><br>
+                  <b>Start</b>: <%= moment(x.startDate).format('Do MMM YYYY')%><br>
+                  <b>End</b>: <%= moment(x.endDate).format('Do MMM YYYY')%><br>
+                  <b>Repo</b>: <a href="https://github.com/<%=x.repo%>" target="_blank"><i><%=x.repo%></i></a>
+                </p>
+              </div>
             <% } %>
+          <% } %>
           </li>
           <li>
             <form class="uk-form-stacked" action="/user/xdoc/new" method="POST">
