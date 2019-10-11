@@ -1,7 +1,6 @@
 require('https').globalAgent.options.rejectUnauthorized = false;
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const https = require('https');
-const querystring = require('querystring');
 
 const User = require('../model/User');
 
@@ -66,19 +65,16 @@ module.exports = (passport) => {
         // TODO: make a http request to Portal to check if such user exist
         // if exists: register the user
         // if not: Throw no such user
-        const postData = querystring.stringify({
-          'email': profile.emails[0].value,
-          'key': process.env.FOSSGST_PORTAL_SECRET
-        });
 
         const options = {
           hostname: 'portal.siesgst.ac.in',
           port: 443,
           path: '/api/v2/checkuser',
-          method: 'POST',
+          method: 'GET',
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Content-Length': Buffer.byteLength(postData)
+            'user-agent': 'FOSSGST',
+            'x-email': profile.emails[0].value,
+            'x-api-key': process.env.FOSSGST_PORTAL_SECRET
           }
         };
 
@@ -136,7 +132,6 @@ module.exports = (passport) => {
           return done(null, null);
         });
 
-        httpReq.write(postData);
         httpReq.end();
       }
     });
