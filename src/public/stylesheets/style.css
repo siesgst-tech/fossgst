@@ -18,6 +18,10 @@ a {
   /* font-family: 'roboto mono'; */
 }
 
+.uk-notification div {
+  font-size: 18px !important;
+}
+
 .button-primary-hover:hover {
   border-color: #1E87F0 !important;
 }
