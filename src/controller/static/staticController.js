@@ -136,7 +136,7 @@ module.exports.githubGetUser = function (req, res) {
     httpRes.on('end', () => {
       // console.log(data);
       const resp = JSON.parse(data);
-      console.log(resp);
+      // console.log(resp);
 
       if (!resp.login) {
         // TODO: handle error
@@ -152,8 +152,9 @@ module.exports.githubGetUser = function (req, res) {
             res.send('error');
           } else {
             // console.log(doc);
-            req.session.user.ghProfile = doc.ghProfile;
-            req.session.user.ghToken = doc.ghToken;
+            req.session.user.ghProfile = resp.login;
+            req.session.user.ghToken = accessToken;
+            // console.log(req.session);
 
             req.flash('toastStatus', 'success');
             req.flash('toastMessage', 'GitHub account connected!');
