@@ -14,7 +14,8 @@ footer {
 }
 
 a {
-  font-family: 'roboto mono';
+  /* font-family: 'space mono'; */
+  /* font-family: 'roboto mono'; */
 }
 
 .button-primary-hover:hover {
@@ -26,15 +27,11 @@ a {
   src: url('/assets/fonts/kenyan coffee rg.ttf');
 }
 
-.font-primary {
-  font-family: 'news cycle' !important;
+.font-spacemono {
+  font-family: 'space mono';
 }
 
 .font-mono {
-  font-family: 'roboto mono' !important;
-}
-
-.font-spacemono {
   font-family: 'space mono' !important;
 }
 
@@ -46,9 +43,17 @@ a {
   font-family: 'roboto' !important;
 }
 
-.font-opensans {
+/* .font-opensans {
   font-family: 'open sans' !important;
 }
+
+.font-primary {
+  font-family: 'news cycle' !important;
+}
+
+.font-robotomono {
+  font-family: 'roboto mono' !important;
+} */
 
 .custom-muted {
   background: #e0e0e0;
