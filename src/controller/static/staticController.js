@@ -35,7 +35,12 @@ module.exports.legals = function (req, res) {
 }
 
 module.exports.register = function (req, res) {
+  if (req.session.loggedIn && req.session.user && req.session.user._id) {
+    res.redirect('/user/profile');
+    return;
+  }
 
+  res.render('static/register');
 }
 
 module.exports.githubCallback = function (req, res) {

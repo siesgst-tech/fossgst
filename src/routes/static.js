@@ -9,6 +9,8 @@ router.get('/', static.index);
 router.get('/tos', static.tos);
 router.get('/tos/accept', auth.isLoggedIn, static.tosAccept);
 
+router.get('/register', static.register);
+
 // Google OAuth Sign In
 router.get('/google/signin', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
