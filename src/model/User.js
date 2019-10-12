@@ -21,8 +21,6 @@ const userSchema = new mongoose.Schema({
   },
   ghProfile: {
     type: String,
-    unique: true,
-    index: true
   },
   ghToken: {
     type: String
