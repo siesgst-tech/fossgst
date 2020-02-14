@@ -12,7 +12,7 @@ function initDatabase () {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
-    useUnifiedTopology: true
+    // useUnifiedTopology: true
   };
 
   let dbUri = process.env.DB_DEV_URI;
