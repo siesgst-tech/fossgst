@@ -43,6 +43,7 @@
         </ul>
 
         <ul class="uk-switcher uk-margin">
+          <!-- XDoC Activities -->
           <li>
             <% if (xdoc.activities.length===0) { %>
             <div class="uk-text-center">
@@ -65,6 +66,8 @@
               <% }
             } %>
           </li>
+
+          <!-- Current and Past Challenges -->
           <li>
             <% if ((xdoc.challenges.active).length===0) { %>
             <div class="uk-text-center">
@@ -106,6 +109,8 @@
           </div>
           <% } %>
           </li>
+
+          <!-- Start new XDoC -->
           <li>
             <form class="uk-form-stacked" action="/user/xdoc/new" method="POST">
 
@@ -221,5 +226,7 @@
     </div>
   </div>
 </main>
+
+<hr>
 
 <%- include('../layout/home_footer'); -%>
