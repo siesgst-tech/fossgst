@@ -17,6 +17,7 @@
   <!-- UIkit JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.8/js/uikit.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.8/js/uikit-icons.min.js"></script>
+  <script src="/assets/javascripts/navbar.js" defer></script>
 
 </head>
 
@@ -45,7 +46,14 @@
             </div>
           </li>
           <li><a href="/#projects">Projects</a></li>
-          <li><a href="/philosophy">About</a></li>
+          <li><a href="#">About</a>
+            <div class="uk-navbar-dropdown">
+              <ul class="uk-nav uk-navbar-dropdown-nav">
+                <li><a href="/philosophy">Philosophy</a></li>
+                <li><a href="/community">Community</a></li>
+              </ul>
+            </div>
+          </li>
 
           <% if (req.session.loggedIn && req.session.user) {
             let user = req.session.user;
@@ -81,26 +89,32 @@
       <div class="uk-navbar-right">
         <ul class="uk-navbar-nav">
           <li><button class="uk-button uk-button-large uk-margin-small-right uk-hidden@s" type="button"
-              uk-toggle="target: #offcanvas-nav-primary" uk-icon="menu"></button>
+              uk-toggle="target: #offcanvas-nav" uk-icon="menu"></button>
         </ul>
       </div>
     </nav>
 
-    <div id="offcanvas-nav-primary" uk-offcanvas="overlay: true">
-      <div class="uk-background-default uk-offcanvas-bar uk-flex uk-flex-column">
-        <ul class="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
-          <li class="uk-active"><a href="/" class="custom-dark">
-            <img src="/assets/images/fossgst_logo.svg" width="50px"> <span style="font-size: 20px;">FOSSGST</span>
-          </a></li>
-          <li><a href="/#events" class="custom-dark">Events</a></li>
-          <li><a href="/#projects" class="custom-dark">Projects</a></li>
-          <li><a href="/philosophy" class="custom-dark">About</a></li>
+    <div id="offcanvas-nav" uk-offcanvas="overlay: true">
+      <div class="uk-background-default uk-offcanvas-bar">
+        <ul class="uk-nav">
+          <li class="uk-active"><a href="/" class="custom-dark-color">
+              <img src="/assets/images/fossgst_logo.svg" width="50px"> <span style="font-size: 20px;">FOSSGST</span></a>
+          </li>
+          <li><a href="/#events" class="custom-dark-color">Events</a></li>
+          <li><a href="/#projects" class="custom-dark-color">Projects</a></li>
+          <li class="uk-parent">
+            <a href="#" class="custom-dark-color" id="offcanvas-about">About</a>
+            <ul class="uk-nav-sub" id="offcanvas-about-slider" style="display: none;">
+              <li><a href="/philosophy" class="custom-dark-color">Philosophy</a></li>
+              <li><a href="/community" class="custom-dark-color">Community</a></li>
+            </ul>
+          </li>
           <% if (req.session.loggedIn && req.session.user) { %>
-          <li><a href="/user/profile" class="custom-dark">Profile</a></li>
-          <li><a href="/signout" class="custom-dark">Signout</a></li>
+          <li><a href="/user/profile" class="custom-dark-color">Profile</a></li>
+          <li><a href="/signout" class="custom-dark-color">Signout</a></li>
           <% } else { %>
-          <li><a href="/google/signin" class="custom-dark">Login</a></li>
-          <li><a href="/register" class="custom-dark">Register</a></li>
+          <li><a href="/google/signin" class="custom-dark-color">Login</a></li>
+          <li><a href="/register" class="custom-dark-color">Register</a></li>
           <% } %>
         </ul>
       </div>
