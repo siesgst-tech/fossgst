@@ -1,0 +1,99 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+footer {
+  /* default padding for top and bottom is 70px */
+  padding: 40px !important;
+}
+
+.uk-comment-primary {
+  /* default padding is 30px */
+  padding: 10px 30px;
+}
+
+a {
+  /* font-family: 'space mono'; */
+  /* font-family: 'roboto mono'; */
+}
+
+.uk-notification div {
+  font-size: 18px !important;
+}
+
+.button-primary-hover:hover {
+  border-color: #1E87F0 !important;
+}
+
+@font-face {
+  font-family: kenyan-coffee;
+  src: url('/assets/fonts/kenyan coffee rg.ttf');
+}
+
+.font-spacemono {
+  font-family: 'space mono';
+}
+
+.font-mono {
+  font-family: 'space mono' !important;
+}
+
+.font-kenyan {
+  font-family: kenyan-coffee !important;
+}
+
+.font-roboto {
+  font-family: 'roboto' !important;
+}
+
+/* .font-opensans {
+  font-family: 'open sans' !important;
+}
+
+.font-primary {
+  font-family: 'news cycle' !important;
+}
+
+.font-robotomono {
+  font-family: 'roboto mono' !important;
+} */
+
+.custom-muted {
+  background: #e0e0e0;
+}
+
+.uikit-muted {
+  background: #f8f8f8;
+}
+
+.uikit-muted-darker {
+  background: #f0f0f0;
+}
+
+.no-decor:hover {
+  text-decoration: none;
+}
+
+.custom-dark {
+  color: gray !important;
+  font-size: 1.2em !important;
+}
+
+.custom-dark:hover {
+  color: #333333 !important;
+}
+
+.custom-dark-color {
+  color: gray !important;
+}
+
+.uk-active .custom-dark {
+  color: #000000 !important;
+  font-size: 1.5em !important;
+}

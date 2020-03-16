@@ -1,0 +1,232 @@
+<%- include('../layout/home_header'); -%>
+
+<main>
+  <div class="uk-container uk-container-xsmall">
+    <div class="uk-section uk-section-default">
+      <div class="uk-grid-divider" uk-grid>
+        <div class="uk-width-3-4@s">
+          <span class="uk-card-title"><%= session.user.fname%></span>
+          <br>
+          <% if (session.user.ghProfile) {
+            let profile = session.user.ghProfile; %>
+          <big>
+            <span uk-icon="github"></span> /<a href="https://github.com/<%= profile%>" target="_blank"><%= profile%></a>
+          </big>
+          <% } else {
+            let clientId = process.env.GITHUB_DEV_CLIENT_ID;
+            if (process.env.NODE_ENV !== 'dev') {
+              clientId = process.env.GITHUB_CLIENT_ID;
+            }
+            const state = session.user._id.substring(0,10);
+            const link = `https://github.com/login/oauth/authorize?client_id=${clientId}&state=${state}`;
+          %>
+            <span uk-icon="github"></span> <a href="<%= link%>"> Connect your GitHub account </a>
+          <% } %>
+          <br>
+          Joined: <%= moment(user.createdAt).format('Do MMM YYYY')%>
+        </div>
+        <div class="uk-width-1-4@s uk-text-center">
+          <img src="<%= session.user.imageUrl%>" alt="user iamge" width="50%">
+          <br><br>
+          <!-- <span uk-icon="settings"></span> <a href="/user/settings">Settings</a> -->
+        </div>
+      </div>
+
+      <br><br>
+      <!-- XDoC section -->
+      <div>
+        <h3>#XDaysOfCode</h3>
+        <ul uk-tab="animation: uk-animation-fade">
+          <li><a href="#">Activities</a></li>
+          <li><a href="#">My Challenges</a></li>
+          <li><a href="#">Start XDoC</a></li>
+        </ul>
+
+        <ul class="uk-switcher uk-margin">
+          <!-- XDoC Activities -->
+          <li>
+            <% if (xdoc.activities.length===0) { %>
+            <div class="uk-text-center">
+              * So empty *
+              <br><a class="uk-button uk-button-text" uk-tab-item="2">Start a new XDoC</a>
+            </div>
+            <% } else {
+              for (let i=0; i<xdoc.activities.length; i++) {
+                const act = xdoc.activities[i];
+                if (act.type=='new') { %>
+                  <article class="uk-comment uk-comment-primary uk-background-primary uk-light">
+                    Started a new XDoC Challange! (<%= moment(act.createdAt).format('Do MMM YYYY')%>)
+                  </article>
+                  <% } else { %>
+                  <article class="uk-comment uk-comment-primary uk-background-muted">
+                    Earned <%=act.point%> point(s). (<%= moment(act.createdAt).format('Do MMM YYYY')%>)
+                  </article>
+                <% } %>
+                <br>
+              <% }
+            } %>
+          </li>
+
+          <!-- Current and Past Challenges -->
+          <li>
+            <% if ((xdoc.challenges.active).length===0) { %>
+            <div class="uk-text-center">
+              Ohh! No active XDoC challange...
+              <br><a class="uk-button uk-button-text" uk-tab-item="2">Start a new XDoC</a>
+            </div>
+            <% } else {
+              for (let i=0; i<(xdoc.challenges.active).length; i++) {
+                let x = xdoc.challenges.active[i]; %>
+                <div class="uk-card uikit-muted-darker uk-card-body uk-width-1-2@m">
+                  <p>
+                    <b>X</b>: <%=x.x%><br>
+                    <b>Start</b>: <%= moment(x.startDate).format('Do MMM YYYY')%><br>
+                    <b>End</b>: <%= moment(x.endDate).format('Do MMM YYYY')%><br>
+                    <b>Repo</b>: <a href="https://github.com/<%=x.repo%>" target="_blank"><i><%=x.repo%></i></a>
+                  </p>
+                </div>
+              <% } %>
+            <% } %>
+
+            <% if ((xdoc.challenges.past).length > 0) { %>
+            <br><br>
+            Past XDoCs
+            <hr>
+            <div class="uk-grid-medium uk-grid-match uk-child-width-1-2@m" uk-grid>
+            <% for (let i=0; i<(xdoc.challenges.past).length; i++) {
+              let x = xdoc.challenges.past[i]; %>
+              <div>
+              <div class="uk-card uikit-muted-darker uk-card-body">
+                <p>
+                  <b>X</b>: <%=x.x%><br>
+                  <b>Start</b>: <%= moment(x.startDate).format('Do MMM YYYY')%><br>
+                  <b>End</b>: <%= moment(x.endDate).format('Do MMM YYYY')%><br>
+                  <b>Repo</b>: <a href="https://github.com/<%=x.repo%>" target="_blank"><i><%=x.repo%></i></a>
+                </p>
+              </div>
+            </div>
+            <% } %>
+          </div>
+          <% } %>
+          </li>
+
+          <!-- Start new XDoC -->
+          <li>
+            <form class="uk-form-stacked" action="/user/xdoc/new" method="POST">
+
+              <div class="uk-margin">
+                <label class="uk-form-label" for="xdoc-x">X (Number of days)</label>
+                <div class="uk-form-controls">
+                  <input class="uk-input uk-form-width-medium" name="x" id="xdoc-x" type="number" value="30" required>
+                </div>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label" for="xdoc-start">Start Date</label>
+                <div class="uk-form-controls">
+                  <input class="uk-input uk-form-width-medium" name="startDate" id="xdoc-start" type="date" required>
+                </div>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label" for="xdoc-url">Repo Name (Should be owned by you)</label>
+                <div class="uk-inline">
+                  <span class="uk-form-icon" uk-icon="icon: github"></span>
+                  <input class="uk-input uk-form-width-large" name="repo" id="xdoc-url" type="text" placeholder="Really just the repo name" required>
+                </div>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label" for="xdoc-description">XDoC Description</label>
+                <div class="uk-form-controls">
+                  <textarea class="uk-textarea uk-form-width-large" name="description" id="xdoc-description" rows="5"
+                    placeholder="What are you planing to do in this XDoC Challange?" required></textarea>
+                </div>
+              </div>
+
+              <button class="uk-button uk-button-primary">Submit</button>
+
+            </form>
+          </li>
+        </ul>
+      </div>
+
+      <br><br>
+      <!-- Project section -->
+      <div>
+        <h3>#Projects</h3>
+        <hr>
+        <center>* Coming Soon *</center>
+        <!-- <ul uk-tab>
+          <li><a href="#">Activities</a></li>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#">Start Project</a></li>
+        </ul>
+
+        <ul class="uk-switcher uk-margin">
+          <li>
+            <% if (projects.activities.length===0) { %>
+            <div class="uk-text-center">
+              Haven't participated in projects yet?
+              <br><a class="uk-button uk-button-text">Participate now</a>
+            </div>
+            <% } else { } %>
+          </li>
+          <li>
+            <% if (projects.participated.length===0) { %>
+            <div class="uk-text-center">
+              Haven't participated in projects yet?
+              <br><a class="uk-button uk-button-text">Participate now</a>
+            </div>
+            <% } else { } %>
+
+            My Projects
+            <hr>
+            <% if (projects.my.length === 0) { %>
+            <div class="uk-text-center">
+              Got anything that people will enjoy building?
+              <br><a class="uk-button uk-button-text" uk-tab-item="2">Add project</a>
+            </div>
+            <% } else { %>
+
+            <% } %>
+          </li>
+          <li>
+            <form class="uk-form-stacked" action="/user/project/new" method="POST">
+
+              <div class="uk-margin">
+                <label class="uk-form-label" for="project-title">Title</label>
+                <div class="uk-form-controls">
+                  <input class="uk-input uk-form-width-large" id="project-title" type="text" placeholder="Project Title" required>
+                </div>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label" for="project-url">Repository URL</label>
+                <div class="uk-form-controls">
+                  <input class="uk-input uk-form-width-large" id="project-url" type="text" placeholder="https://github.com/my/repo" required>
+                </div>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label" for="project-description">Project Description</label>
+                <div class="uk-form-controls">
+                  <textarea class="uk-textarea uk-form-width-large" id="project-description" rows="5" placeholder="What are you planing to do in this Project?" required></textarea>
+                </div>
+              </div>
+
+              <button class="uk-button uk-button-primary">Submit</button>
+
+            </form>
+          </li>
+        </ul> -->
+
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<hr>
+
+<%- include('../layout/home_footer'); -%>
