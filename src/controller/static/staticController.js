@@ -17,6 +17,9 @@ module.exports.philosophy = function (req, res) {
   res.render('philosophy');
 }
 
+module.exports.community = function (req, res) {
+  res.render('community');
+}
 
 module.exports.tos = function (req, res) {
   res.render('static/tos');
