@@ -89,6 +89,10 @@ a {
   color: #333333 !important;
 }
 
+.custom-dark-color {
+  color: gray !important;
+}
+
 .uk-active .custom-dark {
   color: #000000 !important;
   font-size: 1.5em !important;

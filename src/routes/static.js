@@ -7,6 +7,7 @@ const auth = require('../controller/static/authController');
 
 router.get('/', static.index);
 router.get('/philosophy', static.philosophy);
+router.get('/community', static.community)
 
 
 router.get('/tos', static.tos);

@@ -43,6 +43,7 @@
         </ul>
 
         <ul class="uk-switcher uk-margin">
+          <!-- XDoC Activities -->
           <li>
             <% if (xdoc.activities.length===0) { %>
             <div class="uk-text-center">
@@ -65,6 +66,8 @@
               <% }
             } %>
           </li>
+
+          <!-- Current and Past Challenges -->
           <li>
             <% if ((xdoc.challenges.active).length===0) { %>
             <div class="uk-text-center">
@@ -89,9 +92,11 @@
             <br><br>
             Past XDoCs
             <hr>
+            <div class="uk-grid-medium uk-grid-match uk-child-width-1-2@m" uk-grid>
             <% for (let i=0; i<(xdoc.challenges.past).length; i++) {
               let x = xdoc.challenges.past[i]; %>
-              <div class="uk-card uikit-muted-darker uk-card-body uk-width-1-2@m">
+              <div>
+              <div class="uk-card uikit-muted-darker uk-card-body">
                 <p>
                   <b>X</b>: <%=x.x%><br>
                   <b>Start</b>: <%= moment(x.startDate).format('Do MMM YYYY')%><br>
@@ -99,9 +104,13 @@
                   <b>Repo</b>: <a href="https://github.com/<%=x.repo%>" target="_blank"><i><%=x.repo%></i></a>
                 </p>
               </div>
+            </div>
             <% } %>
+          </div>
           <% } %>
           </li>
+
+          <!-- Start new XDoC -->
           <li>
             <form class="uk-form-stacked" action="/user/xdoc/new" method="POST">
 
@@ -217,5 +226,7 @@
     </div>
   </div>
 </main>
+
+<hr>
 
 <%- include('../layout/home_footer'); -%>
