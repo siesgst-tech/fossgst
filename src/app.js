@@ -1,17 +1,23 @@
 const express = require('express');
-
-const initMiddleware = require('./config/middleware');
-const initDatabase = require('./config/database');
-const initRoutes = require('./routes/index');
-
 const app = express();
 
-initMiddleware(app);
-initDatabase();
-initRoutes(app);
+const middleware = require('./config/middleware');
+middleware.init(app);
 
-app.use((req, res) => {
-  res.status(404).render('error');
+const routes = require('./routes/index');
+routes.init(app);
+
+const database = require('./config/database');
+database.connect().then(() => {
+  console.log('Connection to database done!');
+
+  const server = require('./config/server');
+  server.start(app);
+
+  middleware.errorHandler(app);
+}).catch((err) => {
+  console.log(err);
+  process.exit(1);
 });
 
 module.exports = app;

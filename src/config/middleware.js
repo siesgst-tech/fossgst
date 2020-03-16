@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const session = require('cookie-session');
 const flash = require('express-flash');
 const moment = require('moment');
-const compression = require('compression');
 const helmet = require('helmet');
 const dotenv = require('dotenv');
 const passport = require('passport');
@@ -20,7 +19,7 @@ const logDirectory = path.join(__dirname, '../../logs');
 // ensure log directory exists
 fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
 
-function initMiddleware(app) {
+module.exports.init = function (app) {
   // protect ourself, wear a helmet
   app.use(helmet());
 
@@ -69,7 +68,8 @@ function initMiddleware(app) {
 
 
   // gzip files before sending
-  app.use(compression());
+  // app.use(compression());
+  // Will be handling this in reverse proxy
 
   // logging format
   let logFormat = '_ID=:_id :remote-addr [:date[web]] ":method :url HTTP/:http-version" :status ":referrer" ":user-agent"';
@@ -78,6 +78,7 @@ function initMiddleware(app) {
   // although this stuff is dependant on ENV, but for now its everything will be served from here
   app.use('/assets', express.static(path.join(__dirname, '../public')));
   // serve favicon from ./public/assets
+  app.use(express.static(path.join(__dirname, '../public')));
   // app.use(favicon(path.join(__dirname, '../public', 'assets', 'favicon.ico')));
   // uncomment when favicon is ready
 
@@ -121,4 +122,18 @@ function initMiddleware(app) {
   console.log('Setting up middlewares done!');
 }
 
-module.exports = initMiddleware;
+// error handler
+module.exports.errorHandler = function (app) {
+  app.use((err, req, res, next) => {
+    console.log(err);
+
+    res.locals.message = err.message;
+    res.locals.error = err;
+
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
+  });
+
+  console.log('Setting up error handling...');
+}
