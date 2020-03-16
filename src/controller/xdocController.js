@@ -98,9 +98,22 @@ async function handleXDoC(xdoc) {
       promises.push(fetchCheckCommit(c, xdoc.userId.ghToken));
     });
 
-    Promise.allSettled(promises).then(d=> {
-      console.log(d);
-    })
+    Promise.allSettled(promises).then(d => {
+      let validity = false;
+      for (const k in d) {
+        const e = d[k];
+        if (e.status === 'fulfilled') {
+          validity = true;
+          break;
+        }
+      }
+
+      updateXDoCActivity(xdoc, d, validity).then((act) => {
+        console.log(act);
+      }).catch((err) => {
+        console.log(err);
+      });
+    });
   } catch (err) {
     console.log(err);
   }
@@ -200,7 +213,37 @@ function checkCommit(commit) {
 }
 
 function updateXDoCActivity(xdoc, commits, validity) {
-  // Activities.find({xdocId:xdoc._id})
+  return new Promise((resolve, reject) => {
+    Activities.findOne({ xdocId: xdoc._id }).sort({ createdAt: -1 }).limit(1).lean().exec((err, activity) => {
+      let c = [];
+      for (let k=0; k<commits.length; ++k) {
+        const e = commits[k].value || commits[k].error;
+
+        c.push({
+          'sha': e[0],
+          'validity': e[1]
+        });
+      }
+
+      let point = activity.point;
+      if (validity)
+        point += 1;
+
+      let newActivity = {
+        xdocId: xdoc._id,
+        point: point,
+        commit: c,
+        validity: validity,
+      };
+
+      Activities.create(newActivity, (err, act) => {
+        if (err)
+          reject(err);
+        else
+          resolve(act);
+      });
+    });
+  });
 }
 
 async function start() {

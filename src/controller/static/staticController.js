@@ -13,6 +13,11 @@ module.exports.index = function (req, res) {
   }
 }
 
+module.exports.philosophy = function (req, res) {
+  res.render('philosophy');
+}
+
+
 module.exports.tos = function (req, res) {
   res.render('static/tos');
 }

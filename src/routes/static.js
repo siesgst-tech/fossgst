@@ -6,6 +6,9 @@ const static = require('../controller/static/staticController');
 const auth = require('../controller/static/authController');
 
 router.get('/', static.index);
+router.get('/philosophy', static.philosophy);
+
+
 router.get('/tos', static.tos);
 router.get('/tos/accept', auth.isLoggedIn, static.tosAccept);
 

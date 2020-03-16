@@ -27,8 +27,8 @@
       style="position: relative; z-index: 980;">
       <div class="uk-navbar-left">
         <ul class="uk-navbar-nav">
-          <li class="uk-active"><a class="uk-logo" href="#">
-            <img src="/assets/images/fossgst_logo.svg" width="70px">
+          <li class="uk-active"><a class="uk-logo" href="/">
+            <img src="/assets/images/fossgst_logo.svg" width="70px"> <span style="font-size: 20px;">FOSSGST</span>
           </a></li>
         </ul>
       </div>
@@ -45,7 +45,7 @@
             </div>
           </li>
           <li><a href="/#projects">Projects</a></li>
-          <li><a href="/#about">About</a></li>
+          <li><a href="/philosophy">About</a></li>
 
           <% if (req.session.loggedIn && req.session.user) {
             let user = req.session.user;
@@ -89,12 +89,12 @@
     <div id="offcanvas-nav-primary" uk-offcanvas="overlay: true">
       <div class="uk-background-default uk-offcanvas-bar uk-flex uk-flex-column">
         <ul class="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
-          <li class="uk-active"><a href="#" class="custom-dark">
-            <img src="/assets/images/fossgst_logo.svg" width="50px">
+          <li class="uk-active"><a href="/" class="custom-dark">
+            <img src="/assets/images/fossgst_logo.svg" width="50px"> <span style="font-size: 20px;">FOSSGST</span>
           </a></li>
           <li><a href="/#events" class="custom-dark">Events</a></li>
           <li><a href="/#projects" class="custom-dark">Projects</a></li>
-          <li><a href="/#about" class="custom-dark">About</a></li>
+          <li><a href="/philosophy" class="custom-dark">About</a></li>
           <% if (req.session.loggedIn && req.session.user) { %>
           <li><a href="/user/profile" class="custom-dark">Profile</a></li>
           <li><a href="/signout" class="custom-dark">Signout</a></li>
